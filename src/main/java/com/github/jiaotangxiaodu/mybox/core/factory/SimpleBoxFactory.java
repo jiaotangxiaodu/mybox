@@ -3,9 +3,11 @@ package com.github.jiaotangxiaodu.mybox.core.factory;
 import com.github.jiaotangxiaodu.mybox.core.context.BoxContext;
 import com.github.jiaotangxiaodu.mybox.core.context.XMLConfigurationContext;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
+/**
+ * BoxFactory的简单实现
+ */
 public class SimpleBoxFactory implements BoxFactory {
 
     /**

@@ -7,10 +7,10 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Map;
 
-public class TestTypeToken {
+public class TestBoxFactory {
 
     @Test
-    public void testTypeToken(){
+    public void testCreate(){
         BoxFactory factory = new SimpleBoxFactory();
         Map<String,Object> map = factory.create(Map.class);
         System.out.println("map = " + map.getClass().getName());

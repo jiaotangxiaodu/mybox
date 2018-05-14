@@ -9,6 +9,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,7 +69,7 @@ public class XMLConfigurationContext implements BoxContext {
                 case "mapper":
                     String keyClassName = item.getAttributes().getNamedItem("name").getNodeValue();
                     String valueClassName = item.getTextContent();
-                    mappers.put(Class.forName(keyClassName),Class.forName(valueClassName));
+                    mappers.put(Class.forName(keyClassName), Class.forName(valueClassName));
                     break;
             }
         }
@@ -75,6 +77,13 @@ public class XMLConfigurationContext implements BoxContext {
 
     @Override
     public <T> Class<? extends T> get(Class<T> boxType, Object... args) {
-        return mappers.get(boxType);
+        Class targetClass = mappers.get(boxType);
+        if (targetClass != null) {
+            return targetClass;
+        }
+        if (!Modifier.isAbstract(boxType.getModifiers())) {
+            return boxType;
+        }
+        return null;
     }
 }
