@@ -67,8 +67,8 @@ public class XMLConfigurationContext implements BoxContext {
 
             switch (item.getNodeName()) {
                 case "mapper":
-                    String keyClassName = item.getAttributes().getNamedItem("name").getNodeValue();
-                    String valueClassName = item.getTextContent();
+                    String keyClassName = item.getAttributes().getNamedItem("name").getNodeValue().trim();
+                    String valueClassName = item.getTextContent().trim();
                     mappers.put(Class.forName(keyClassName), Class.forName(valueClassName));
                     break;
             }

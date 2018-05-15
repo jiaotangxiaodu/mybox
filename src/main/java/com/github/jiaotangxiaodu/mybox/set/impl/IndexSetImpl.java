@@ -2,130 +2,280 @@ package com.github.jiaotangxiaodu.mybox.set.impl;
 
 import com.github.jiaotangxiaodu.mybox.set.IndexSet;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 
-/**
- * IndexSet的默认实现,物理结构是HashSet
- * IndexSet要求传入的元素的索引不可重复
- */
 public class IndexSetImpl<E> implements IndexSet<E> {
 
     /**
-     * 被装饰者,未创建索引时本类的行为与被装饰者一致
-     * 创建索引后,这个对象会被置空
+     * 存放所有索引映射,值为主键值
+     * 外层Map：键为索引名（pojo属性名），值为索引序列
+     * 第二层Map（索引序列）：键为索引值（pojo索引值），值为该索引所对应的所有元素的主键
      */
-    private Set<E> set = new HashSet<>();
+    private Map<String, Map<Object, LinkedList<Integer>>> indexMappers = new HashMap<>();
+    /**
+     * 主键映射
+     */
+    private HashMap<Integer, E> primaryKeyMap = new HashMap<>();
 
     /**
-     * 创建索引后,元素会放在这个List集合里
+     * 自增长的主键值
      */
-    private List<E> list;
+    private int pkIndex = 0;
 
-    /**
-     * 标记是否已经创建了索引,未创建时本类的行为和被装饰的Set一致
-     */
-    private boolean isIndexed = false;
 
-    /**
-     * 存放索引的集合,键为索引名,值为存放索引的集合
-     */
-    private Map<String, Collection> indexMapper;
+    @Override
+    public List<E> selectByIndex(String fieldName, Object index) {
+        Map<?, LinkedList<Integer>> indexMapper = indexMappers.get(fieldName);
+        LinkedList<Integer> primaryKeys = indexMapper.get(index);
+        if (primaryKeys == null) {
+            return new LinkedList<>();
+        }
+        List<E> elements = new ArrayList<>();
+        for (Integer pk : primaryKeys) {
+            elements.add(selectByPK(pk));
+        }
+        return elements;
+    }
+
+    @Override
+    public E selectOneByIndex(String fieldName, Object index) {
+        Map<?, LinkedList<Integer>> indexCollection = indexMappers.get(fieldName);
+        if (indexCollection == null) {
+            throw new RuntimeException("未建立索引：" + fieldName);
+        }
+        LinkedList<Integer> primaryKeys = indexCollection.get(index);
+        if (primaryKeys == null || primaryKeys.size() == 0) {
+            return null;//index的查询结果为空
+        }
+        return selectByPK(primaryKeys.get(0));
+    }
+
+    @Override
+    public void createIndex(String fieldName) {
+        if (indexMappers.containsKey(fieldName)) {
+            throw new RuntimeException("你已经建立过这个索引了:" + fieldName);
+        }
+        Map<Object, LinkedList<Integer>> indexMapper = createIndexMapper();
+        indexMappers.put(fieldName, indexMapper);
+        for (Map.Entry<Integer, E> nodeEntry : primaryKeyMap.entrySet()) {
+            Integer pk = nodeEntry.getKey();
+            E value = nodeEntry.getValue();
+            Object index = getElementIndex(fieldName, value);
+            LinkedList<Integer> pks = indexMapper.get(index);
+            if (pks == null) {
+                pks = new LinkedList<>();
+                indexMapper.put(index, pks);
+            }
+            pks.push(pk);
+        }
+    }
 
 
     @Override
     public int size() {
-        return getReference().size();
+        return primaryKeyMap.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return getReference().isEmpty();
+        return primaryKeyMap.isEmpty();
     }
 
     @Override
     public boolean contains(Object o) {
-        if (!isIndexed) {
-            return set.contains(o);
-        }
-        //获取索引映射里的第一个索引,通过这个索引来判断集合里是否存在o
-        return contains(indexMapper.keySet().iterator().next(), o);
+        return primaryKeyMap.values().contains(o);
     }
 
     @Override
     public Iterator<E> iterator() {
-        return getReference().iterator();
+        return primaryKeyMap.values().iterator();
     }
 
     @Override
     public Object[] toArray() {
-        return getReference().toArray();
+        return primaryKeyMap.values().toArray();
     }
 
     @Override
     public <T> T[] toArray(T[] a) {
-        return getReference().toArray(a);
+        return primaryKeyMap.values().toArray(a);
     }
 
     @Override
     public boolean add(E e) {
-        return false;
+
+        if (contains(e)) return false;//Set不允许重复元素
+
+        primaryKeyMap.put(pkIndex, e);
+        notifyAdd(e);
+        pkIndex++;
+        return true;
     }
+
 
     @Override
     public boolean remove(Object o) {
+//        if (!primaryKeyMap.values().contains(o)) return false;
+        if (indexMappers.size() > 0) {//有索引的情况下通过第一个索引查找元素来删除
+            return remove(o, indexMappers.keySet().iterator().next());
+        } else {//没有创建任何索引时遍历全表
+            Set<Map.Entry<Integer, E>> pkEntrySet = primaryKeyMap.entrySet();
+            for (Map.Entry<Integer, E> pkEntry : pkEntrySet) {
+                if (equals(o, pkEntry.getValue())) {
+                    primaryKeyMap.remove(pkEntry.getKey());
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+
+    @Override
+    public boolean remove(Object o, String indexFieldName) {
+        Object index = getElementIndex(indexFieldName, o);
+        Map<Object, LinkedList<Integer>> indexMapper = indexMappers.get(indexFieldName);
+        LinkedList<Integer> pks = indexMapper.get(index);
+        for (Integer pk : pks) {
+            E element = primaryKeyMap.get(pk);
+            if (!equals(element, o)) {
+                continue;
+            }
+            primaryKeyMap.remove(pk);
+            notifyDelete(element, pk);
+            return true;
+        }
         return false;
     }
 
+
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        return primaryKeyMap.values().containsAll(c);
     }
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        return false;
+        boolean flag = false;
+        for (E e : c) {
+            boolean add = add(e);
+            flag = flag || add;
+        }
+        return flag;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        return primaryKeyMap.values().retainAll(c);
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        boolean flag = false;
+        for (Object e : c) {
+            boolean remove = remove((Object) e);
+            flag = flag || remove;
+        }
+        return flag;
     }
 
+    /**
+     * 这个方法会连同索引一起清除，但是不会清除主键自增序列
+     */
     @Override
     public void clear() {
-
-    }
-
-    @Override
-    public void index(String indexFieldName, Class<? extends Collection> indexStru) {
-
-    }
-
-    @Override
-    public E find(String indexFieldName, Object index) {
-        return null;
+        primaryKeyMap.clear();
+        indexMappers.clear();
     }
 
     /**
-     * 获得被装饰者
+     * 通过主键获取值
+     *
+     * @param primaryKey
      * @return
      */
-    public Collection<E> getReference() {
-        return isIndexed ? list : set;
+    private E selectByPK(Integer primaryKey) {
+        return primaryKeyMap.get(primaryKey);
     }
 
     /**
-     * 索引节点
+     * 创建索引映射，默认物理结构是HashMap
+     *
+     * @return
      */
-    static class IndexNode {
-        Object index;//索引
-        int position;//这个元素在集合的下标
+    protected Map<Object, LinkedList<Integer>> createIndexMapper() {
+        return new HashMap<>();
     }
 
+    /**
+     * 获取pojo的属性（索引值）
+     *
+     * @param indexFieldName
+     * @param element
+     * @return
+     */
+    public Object getElementIndex(String indexFieldName, Object element) {
+        try {
+            PropertyDescriptor propertyDescriptor = new PropertyDescriptor(indexFieldName, element.getClass());
+            Method readMethod = propertyDescriptor.getReadMethod();
+            Object invoke = readMethod.invoke(element);
+            return invoke;
+        } catch (IntrospectionException e) {
+            throw new RuntimeException(e.getClass().getName() + "不存在名为" + indexFieldName + "的属性", e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    /**
+     * 通知所有索引某一元素被添加
+     *
+     * @param e
+     */
+    private void notifyAdd(E e) {
+        for (Map.Entry<String, Map<Object, LinkedList<Integer>>> indexMapperEntry : indexMappers.entrySet()) {
+            String indexFieldName = indexMapperEntry.getKey();
+            Map<Object, LinkedList<Integer>> indexMapper = indexMapperEntry.getValue();
+            Object index = getElementIndex(indexFieldName, e);
+            LinkedList<Integer> pks = indexMapper.get(index);
+            if (pks == null) {
+                pks = new LinkedList<>();
+                indexMapper.put(index, pks);
+            }
+            pks.push(pkIndex);
+        }
+    }
+
+    /**
+     * 通知所有索引某一元素被删除
+     *
+     * @param e
+     * @param pk :被删除元素的主键
+     */
+    private void notifyDelete(E e, Integer pk) {
+        for (Map.Entry<String, Map<Object, LinkedList<Integer>>> indexMapperEntry : indexMappers.entrySet()) {
+            String indexFieldName = indexMapperEntry.getKey();
+            Map<Object, LinkedList<Integer>> indexMapper = indexMapperEntry.getValue();
+            Object index = getElementIndex(indexFieldName, e);
+            LinkedList<Integer> pks = indexMapper.get(index);
+            pks.remove((Object) pk);
+        }
+    }
+
+    private boolean equals(Object o1, Object o2) {
+        if (o1 == null) {
+            return o1 == o2;
+        } else {
+            return o1.equals(o2);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return primaryKeyMap.toString();
+    }
 }
