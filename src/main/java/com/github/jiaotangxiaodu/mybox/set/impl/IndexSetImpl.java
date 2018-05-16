@@ -8,6 +8,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
+/**
+ * IndexSet的默认实现
+ *
+ * @param <E>
+ */
 public class IndexSetImpl<E> implements IndexSet<E> {
 
     /**
@@ -177,7 +182,7 @@ public class IndexSetImpl<E> implements IndexSet<E> {
     public boolean removeAll(Collection<?> c) {
         boolean flag = false;
         for (Object e : c) {
-            boolean remove = remove((Object) e);
+            boolean remove = remove(e);
             flag = flag || remove;
         }
         return flag;
@@ -195,8 +200,7 @@ public class IndexSetImpl<E> implements IndexSet<E> {
     /**
      * 通过主键获取值
      *
-     * @param primaryKey
-     * @return
+     * @param primaryKey 主键
      */
     private E selectByPK(Integer primaryKey) {
         return primaryKeyMap.get(primaryKey);
@@ -204,26 +208,23 @@ public class IndexSetImpl<E> implements IndexSet<E> {
 
     /**
      * 创建索引映射，默认物理结构是HashMap
-     *
-     * @return
      */
-    protected Map<Object, LinkedList<Integer>> createIndexMapper() {
+    private Map<Object, LinkedList<Integer>> createIndexMapper() {
         return new HashMap<>();
     }
 
     /**
      * 获取pojo的属性（索引值）
      *
-     * @param indexFieldName
-     * @param element
-     * @return
+     * @param indexFieldName 索引名(POJO的属性名)
+     * @param element        需要获取属性的POJO
+     * @return 获得的属性值
      */
-    public Object getElementIndex(String indexFieldName, Object element) {
+    public static Object getElementIndex(String indexFieldName, Object element) {
         try {
             PropertyDescriptor propertyDescriptor = new PropertyDescriptor(indexFieldName, element.getClass());
             Method readMethod = propertyDescriptor.getReadMethod();
-            Object invoke = readMethod.invoke(element);
-            return invoke;
+            return readMethod.invoke(element);
         } catch (IntrospectionException e) {
             throw new RuntimeException(e.getClass().getName() + "不存在名为" + indexFieldName + "的属性", e);
         } catch (Exception e) {
@@ -234,7 +235,7 @@ public class IndexSetImpl<E> implements IndexSet<E> {
     /**
      * 通知所有索引某一元素被添加
      *
-     * @param e
+     * @param e 被添加的元素
      */
     private void notifyAdd(E e) {
         for (Map.Entry<String, Map<Object, LinkedList<Integer>>> indexMapperEntry : indexMappers.entrySet()) {
@@ -253,7 +254,7 @@ public class IndexSetImpl<E> implements IndexSet<E> {
     /**
      * 通知所有索引某一元素被删除
      *
-     * @param e
+     * @param e  被删除的元素
      * @param pk :被删除元素的主键
      */
     private void notifyDelete(E e, Integer pk) {
@@ -262,16 +263,17 @@ public class IndexSetImpl<E> implements IndexSet<E> {
             Map<Object, LinkedList<Integer>> indexMapper = indexMapperEntry.getValue();
             Object index = getElementIndex(indexFieldName, e);
             LinkedList<Integer> pks = indexMapper.get(index);
-            pks.remove((Object) pk);
+            pks.remove((Object) pk);//这个强转不要删
         }
     }
 
     private boolean equals(Object o1, Object o2) {
-        if (o1 == null) {
-            return o1 == o2;
-        } else {
-            return o1.equals(o2);
-        }
+//        if (o1 == null) {
+//            return o2 == null;
+//        } else {
+//            return o1.equals(o2);
+//        }
+        return o1 == null ? o2 == null : o1.equals(o2);
     }
 
     @Override

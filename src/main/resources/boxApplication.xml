@@ -6,12 +6,18 @@
     <mappers>
         <!-- Java原生接口 -->
         <mapper name="java.util.List">java.util.ArrayList</mapper>
-        <mapper name="java.util.Set">java.util.HashSet</mapper>
+        <mapper name="java.util.Set">com.github.jiaotangxiaodu.mybox.set.impl.HashSetImpl</mapper>
 
         <!-- Set -->
         <mapper name="com.github.jiaotangxiaodu.mybox.set.IndexSet">com.github.jiaotangxiaodu.mybox.set.impl.IndexSetImpl</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.set.HashSet">java.util.HashSet</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.set.SortedSet">java.util.TreeSet</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.set.HashSet">com.github.jiaotangxiaodu.mybox.set.impl.HashSetImpl</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.set.SortedSet">com.github.jiaotangxiaodu.mybox.set.impl.SortedSetImpl</mapper>
+
+        <!-- LinearList -->
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinearList">com.github.jiaotangxiaodu.mybox.linear.impl.ArrayListImpl</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinkedList">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedListImpl</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.ArrayList">com.github.jiaotangxiaodu.mybox.linear.impl.ArrayListImpl</mapper>
+
 
         <!-- Tree -->
         <mapper name="com.github.jiaotangxiaodu.mybox.tree.RBTree">java.util.TreeSet</mapper>
