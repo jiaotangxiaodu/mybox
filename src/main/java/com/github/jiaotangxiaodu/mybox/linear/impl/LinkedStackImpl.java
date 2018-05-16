@@ -5,6 +5,7 @@ import com.github.jiaotangxiaodu.mybox.linear.LinkedStack;
 
 import java.util.AbstractCollection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * github.com/jiaotangxiaodu/mybox
@@ -27,8 +28,7 @@ public class LinkedStackImpl<E> extends AbstractCollection<E> implements LinkedS
 
     @Override
     public Iterator<E> iterator() {
-        Node<E> fakeNode = new Node<>(top, null);
-        return new StackIterator<>(fakeNode);
+        return new LinkedItr<>(top);
     }
 
 
@@ -93,7 +93,7 @@ public class LinkedStackImpl<E> extends AbstractCollection<E> implements LinkedS
      */
     private void throwExceptionIfEmpty() {
         if (size == 0) {
-            throw new RuntimeException("当前栈为空");
+            throw new NoSuchElementException("当前栈为空");
         }
     }
 
@@ -112,23 +112,27 @@ public class LinkedStackImpl<E> extends AbstractCollection<E> implements LinkedS
         E element;//指向储存的元素
     }
 
-    static class StackIterator<E> implements Iterator<E> {
-        private Node<E> curNode;
+    private class LinkedItr<E> implements Iterator<E> {
+        private Node<E> lastReturned;
+        private Node<E> next;
 
-        StackIterator(Node<E> first) {
-            this.curNode = first;
+        LinkedItr(Node<E> front) {
+            next = front;
         }
 
-        @Override
         public boolean hasNext() {
-            return curNode.next != null;
+            return next != null;
         }
 
-        @Override
         public E next() {
-            curNode = curNode.next;
-            return curNode.element;
+            if (!hasNext())
+                throw new NoSuchElementException();
+
+            lastReturned = next;
+            next = next.next;
+            return lastReturned.element;
         }
+
     }
 
 }
