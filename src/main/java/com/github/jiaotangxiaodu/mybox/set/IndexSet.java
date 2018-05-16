@@ -1,15 +1,7 @@
 package com.github.jiaotangxiaodu.mybox.set;
 
 import com.github.jiaotangxiaodu.mybox.inf.Indexed;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Collection;
 import java.util.Set;
 
 /**

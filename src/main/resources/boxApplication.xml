@@ -10,6 +10,8 @@
 
         <!-- Set -->
         <mapper name="com.github.jiaotangxiaodu.mybox.set.IndexSet">com.github.jiaotangxiaodu.mybox.set.impl.IndexSetImpl</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.set.HashSet">java.util.HashSet</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.set.SortedSet">java.util.TreeSet</mapper>
 
         <!-- Tree -->
         <mapper name="com.github.jiaotangxiaodu.mybox.tree.RBTree">java.util.TreeSet</mapper>
