@@ -1,5 +1,6 @@
 package com.github.jiaotangxiaodu.mybox.set.impl;
 
+import com.github.jiaotangxiaodu.mybox.core.util.CommonUtil;
 import com.github.jiaotangxiaodu.mybox.set.IndexSet;
 
 import java.beans.IntrospectionException;
@@ -274,7 +275,7 @@ public class IndexSetImpl<E> implements IndexSet<E> {
 //        } else {
 //            return o1.equals(o2);
 //        }
-        return o1 == null ? o2 == null : o1.equals(o2);
+        return CommonUtil.equals(o1, o2);
     }
 
     @Override
