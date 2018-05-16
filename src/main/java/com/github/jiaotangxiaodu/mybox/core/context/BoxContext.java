@@ -1,6 +1,7 @@
 package com.github.jiaotangxiaodu.mybox.core.context;
-
 /**
+ * github.com/jiaotangxiaodu/mybox
+ * 2018-5-16
  * 容器上下文,内部维护容器接口字节码和实现类的映射关系
  */
 public interface BoxContext {

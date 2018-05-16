@@ -6,6 +6,8 @@ import com.github.jiaotangxiaodu.mybox.core.context.XMLConfigurationContext;
 import java.util.Arrays;
 
 /**
+ * github.com/jiaotangxiaodu/mybox
+ * 2018-5-16
  * BoxFactory的简单实现
  */
 public class SimpleBoxFactory implements BoxFactory {

@@ -1,5 +1,9 @@
 package com.github.jiaotangxiaodu.mybox.set;
 
+/**
+ * github.com/jiaotangxiaodu/mybox
+ * 2018-5-16
+ */
 public interface SortedSet<E> extends java.util.SortedSet<E> {
 
     @Override

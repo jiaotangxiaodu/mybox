@@ -2,9 +2,12 @@ package com.github.jiaotangxiaodu.mybox.inf;
 
 import java.util.List;
 
+
 /**
+ * github.com/jiaotangxiaodu/mybox
+ * 2018-5-16
  * 带有索引的容器
- * @param <E>
+ * @param <E> 容器中POJO的泛型
  */
 public interface Indexed<E> {
 

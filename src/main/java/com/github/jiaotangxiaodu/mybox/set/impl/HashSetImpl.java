@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
+ * github.com/jiaotangxiaodu/mybox
+ * 2018-5-16
  * HashSet的默认实现
  *
  * @param <E>

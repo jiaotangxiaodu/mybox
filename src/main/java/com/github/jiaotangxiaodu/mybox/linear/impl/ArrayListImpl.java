@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
+ * github.com/jiaotangxiaodu/mybox
+ * 2018-5-16
  * ArrayList的默认实现类
- * @param <E>
  */
 public class ArrayListImpl<E> implements ArrayList<E> {
 

@@ -4,11 +4,12 @@ import com.github.jiaotangxiaodu.mybox.set.IndexSet;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
 /**
+ * github.com/jiaotangxiaodu/mybox
+ * 2018-5-16
  * IndexSet的默认实现
  *
  * @param <E>

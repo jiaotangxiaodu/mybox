@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
+ * github.com/jiaotangxiaodu/mybox
+ * 2018-5-16
  * LinkedList的默认实现类
  * @param <E>
  */

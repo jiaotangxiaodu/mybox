@@ -5,6 +5,8 @@ import com.github.jiaotangxiaodu.mybox.inf.Indexed;
 import java.util.Set;
 
 /**
+ * github.com/jiaotangxiaodu/mybox
+ * 2018-5-16
  * 可以对元素创建索引的Set
  * 赋予Set容器中POJO通过索引查找的能力
  * v1.0支持创建多个索引，每次能用一个索引进行查找，不支持复杂pojo

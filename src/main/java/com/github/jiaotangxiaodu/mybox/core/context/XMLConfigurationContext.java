@@ -1,19 +1,20 @@
 package com.github.jiaotangxiaodu.mybox.core.context;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * github.com/jiaotangxiaodu/mybox
+ * 2018-5-16
+ * 通过XML配置文件初始化的容器上下文
+ */
 public class XMLConfigurationContext implements BoxContext {
 
     private Map<Class, Class> mappers = new HashMap<>();

@@ -1,6 +1,8 @@
 package com.github.jiaotangxiaodu.mybox.core.factory;
 
 /**
+ * github.com/jiaotangxiaodu/mybox
+ * 2018-5-16
  * 构建容器的核心工厂
  */
 public interface BoxFactory {

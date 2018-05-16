@@ -8,8 +8,9 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 /**
+ * github.com/jiaotangxiaodu/mybox
+ * 2018-5-16
  * SortedSet的默认实现
- *
  * @param <E>
  */
 public class SortedSetImpl<E> implements SortedSet<E> {
