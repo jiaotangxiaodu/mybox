@@ -11,23 +11,26 @@ import java.util.TreeSet;
  * github.com/jiaotangxiaodu/mybox
  * 2018-5-16
  * SortedSet的默认实现
+ *
  * @param <E>
  */
 public class SortedSetImpl<E> implements SortedSet<E> {
 
 
+    /**
+     * 被代理对象
+     */
+    private java.util.SortedSet<E> proxy;
+
     public SortedSetImpl() {
         this.proxy = new TreeSet<>();
     }
+
 
     private SortedSetImpl(java.util.SortedSet<E> proxy) {
         this.proxy = proxy;
     }
 
-    /**
-     * 被代理对象
-     */
-    private java.util.SortedSet<E> proxy;
 
     @Override
     public Comparator<? super E> comparator() {
@@ -127,5 +130,17 @@ public class SortedSetImpl<E> implements SortedSet<E> {
     public SortedSet<E> tailSet(E fromElement) {
         java.util.SortedSet<E> es = proxy.tailSet(fromElement);
         return new SortedSetImpl<>(es);
+    }
+
+    @Override
+    public void setComparator(Comparator<E> comparator) {
+        TreeSet<E> newProxy = new TreeSet<>(comparator);
+        newProxy.addAll(proxy);
+        proxy = newProxy;
+    }
+
+    @Override
+    public String toString() {
+        return proxy.toString();
     }
 }

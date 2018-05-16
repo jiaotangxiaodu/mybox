@@ -83,4 +83,8 @@ public class HashSetImpl<E> implements HashSet<E> {
         return proxy.toArray(a);
     }
 
+    @Override
+    public String toString() {
+        return proxy.toString();
+    }
 }

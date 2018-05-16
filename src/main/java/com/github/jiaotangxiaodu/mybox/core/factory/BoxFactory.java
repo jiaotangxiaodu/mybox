@@ -10,7 +10,7 @@ public interface BoxFactory {
     /**
      * 构建容器
      * @param boxType 需要构建的容器的字节码,可以从BoxTypeEnum中获取
-     * @param args 保留参数,暂时没有作用
+     * @param args 目前不可用,如果容器构造函数需要参数,可以将参数传入
      * @see BoxTypeEnum
      */
     <T> T create(Class<T> boxType,Object...args);

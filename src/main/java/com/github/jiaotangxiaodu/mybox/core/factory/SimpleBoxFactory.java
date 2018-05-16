@@ -3,6 +3,7 @@ package com.github.jiaotangxiaodu.mybox.core.factory;
 import com.github.jiaotangxiaodu.mybox.core.context.BoxContext;
 import com.github.jiaotangxiaodu.mybox.core.context.XMLConfigurationContext;
 
+import java.lang.reflect.Constructor;
 import java.util.Arrays;
 
 /**
@@ -31,13 +32,42 @@ public class SimpleBoxFactory implements BoxFactory {
             initDefaultContext();
         }
         Class<? extends T> targetClass = boxContext.get(boxType);
-        try {
-            return targetClass.getConstructor().newInstance();
-        } catch (Exception e) {
-            if (targetClass == null) {
-                throw new RuntimeException("class=" + boxType.getName() + ",args=" + Arrays.toString(args) + ",未注册到boxContext中", e);
-            }
-            throw new RuntimeException(targetClass.getName() + "不存在空参构造方法", e);
+
+        if (targetClass == null) {
+            throw new RuntimeException("class=" + boxType.getName() + ",args=" + Arrays.toString(args) + ",未注册到boxContext中");
         }
+
+        try {
+            if (args == null || args.length == 0) {
+                return invokeNullArgsConstructor(targetClass);
+            } else {
+                return invokeArgsConstructor(targetClass, args);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("构造容器失败", e);
+        }
+    }
+
+    /**
+     * 使用空参构造创建容器
+     *
+     * @param boxType
+     * @param <T>
+     * @return
+     */
+    private <T> T invokeNullArgsConstructor(Class<T> boxType) {
+        try {
+            Constructor<T> constructor = boxType.getConstructor();
+            T t = constructor.newInstance();
+            return t;
+        } catch (NoSuchMethodException | IllegalAccessException e) {
+            throw new RuntimeException("容器不存在可用的空参构造", e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private <T> T invokeArgsConstructor(Class<T> boxType, Object[] args) {
+        throw new UnsupportedOperationException("暂时不支持带参数的构造");
     }
 }

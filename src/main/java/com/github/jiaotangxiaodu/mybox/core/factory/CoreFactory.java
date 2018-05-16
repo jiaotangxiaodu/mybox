@@ -5,7 +5,7 @@ package com.github.jiaotangxiaodu.mybox.core.factory;
  * 2018-5-16
  * myBox自用Factory,使用框架时勿用
  */
-abstract class CoreFactory {
+public abstract class CoreFactory {
 
     private static BoxFactory instance = new SimpleBoxFactory();
 
