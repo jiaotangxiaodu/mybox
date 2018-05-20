@@ -12,7 +12,7 @@ import java.util.UUID;
  * github.com/jiaotangxiaodu/mybox
  * 2018-5-16
  */
-public class SortedSetTest extends SetTest {
+public class SortedSetTest extends SetTest<ExamScore> {
 
     @Override
     protected boolean testAddNull() {
@@ -25,12 +25,12 @@ public class SortedSetTest extends SetTest {
     }
 
     @Override
-    protected Object newRandomElement() {
+    protected ExamScore newRandomElement() {
         return new ExamScore(new Random().nextInt(), UUID.randomUUID().toString().trim());
     }
 
     @Override
-    protected Object getSpecialElement() {
+    protected ExamScore getSpecialElement() {
         return new ExamScore(6, "王尼玛");
     }
 }
