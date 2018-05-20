@@ -14,13 +14,15 @@
         <mapper name="com.github.jiaotangxiaodu.mybox.set.SortedSet">com.github.jiaotangxiaodu.mybox.set.impl.SortedSetImpl</mapper>
 
         <!-- Linear -->
-        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinearList">com.github.jiaotangxiaodu.mybox.linear.impl.ArrayListImpl</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinkedList">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedListImpl</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.linear.ArrayList">com.github.jiaotangxiaodu.mybox.linear.impl.ArrayListImpl</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinearList">com.github.jiaotangxiaodu.mybox.linear.impl.ArrayListProxy</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinkedList">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedListProxy</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.ArrayList">com.github.jiaotangxiaodu.mybox.linear.impl.ArrayListProxy</mapper>
         <mapper name="com.github.jiaotangxiaodu.mybox.linear.Stack">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedStackImpl</mapper>
         <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinkedStack">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedStackImpl</mapper>
         <mapper name="com.github.jiaotangxiaodu.mybox.linear.Queue">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedQueueImpl</mapper>
         <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinkedQueue">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedQueueImpl</mapper>
+
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.Deque">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedDequeProxy</mapper>
 
         <!-- Tree -->
         <mapper name="com.github.jiaotangxiaodu.mybox.tree.RBTree">java.util.TreeSet</mapper>

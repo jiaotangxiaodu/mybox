@@ -2,6 +2,7 @@ package com.github.jiaotangxiaodu.mybox.core.factory;
 
 import com.github.jiaotangxiaodu.mybox.core.context.BoxContext;
 import com.github.jiaotangxiaodu.mybox.core.context.XMLConfigurationContext;
+import com.github.jiaotangxiaodu.mybox.inf.ProxyImpl;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -31,7 +32,7 @@ public class SimpleBoxFactory implements BoxFactory {
         if (boxContext == null) {
             initDefaultContext();
         }
-        Class<? extends T> targetClass = boxContext.get(boxType);
+        Class targetClass = boxContext.get(boxType);
 
         if (targetClass == null) {
             throw new RuntimeException("class=" + boxType.getName() + ",args=" + Arrays.toString(args) + ",未注册到boxContext中");
@@ -55,7 +56,12 @@ public class SimpleBoxFactory implements BoxFactory {
      * @param <T>
      * @return
      */
-    private <T> T invokeNullArgsConstructor(Class<T> boxType) {
+    private <T> T invokeNullArgsConstructor(Class boxType) {
+
+        if (ProxyImpl.class.isAssignableFrom(boxType)) {
+            return newProxyInstance((Class<? extends ProxyImpl<T>>) boxType);
+        }
+
         try {
             Constructor<T> constructor = boxType.getConstructor();
             T t = constructor.newInstance();
@@ -67,7 +73,22 @@ public class SimpleBoxFactory implements BoxFactory {
         }
     }
 
-    private <T> T invokeArgsConstructor(Class<T> boxType, Object[] args) {
+    /**
+     * 通过代理方式实例化容器
+     *
+     * @param boxType
+     * @param <T>
+     * @return
+     */
+    private <T> T newProxyInstance(Class<? extends ProxyImpl<T>> boxType) {
+        try {
+            return boxType.getConstructor().newInstance().newProxy();
+        } catch (Exception e) {
+            throw new RuntimeException("无法实例化" + boxType.getName() + "的代理对象", e);
+        }
+    }
+
+    private <T> T invokeArgsConstructor(Class boxType, Object[] args) {
         throw new UnsupportedOperationException("暂时不支持带参数的构造");
     }
 }
