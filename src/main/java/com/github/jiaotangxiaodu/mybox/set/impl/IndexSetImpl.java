@@ -37,6 +37,13 @@ public class IndexSetImpl<E> implements IndexSet<E> {
     @Override
     public List<E> selectByIndex(String fieldName, Object index) {
         Map<?, LinkedList<Integer>> indexMapper = indexMappers.get(fieldName);
+
+        if(indexMapper == null){
+            //此时未建立该字段的索引,自动建索引
+            this.createIndex(fieldName);
+            return selectByIndex(fieldName,index);
+        }
+
         LinkedList<Integer> primaryKeys = indexMapper.get(index);
         if (primaryKeys == null) {
             return new LinkedList<>();
@@ -52,7 +59,10 @@ public class IndexSetImpl<E> implements IndexSet<E> {
     public E selectOneByIndex(String fieldName, Object index) {
         Map<?, LinkedList<Integer>> indexCollection = indexMappers.get(fieldName);
         if (indexCollection == null) {
-            throw new RuntimeException("未建立索引：" + fieldName);
+//            throw new RuntimeException("未建立索引：" + fieldName);
+            //此时未建立该字段的索引,自动建立
+            this.createIndex(fieldName);
+            return selectOneByIndex(fieldName,index);
         }
         LinkedList<Integer> primaryKeys = indexCollection.get(index);
         if (primaryKeys == null || primaryKeys.size() == 0) {
@@ -281,5 +291,10 @@ public class IndexSetImpl<E> implements IndexSet<E> {
     @Override
     public String toString() {
         return primaryKeyMap.toString();
+    }
+
+    @Override
+    public Set<String> showIndexs(){
+        return indexMappers.keySet();
     }
 }

@@ -1,6 +1,7 @@
 package com.github.jiaotangxiaodu.mybox.inf;
 
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -44,4 +45,9 @@ public interface Indexed<E> {
      * @return
      */
     boolean remove(Object o, String indexFieldName);
+
+    /**
+     * 返回所有索引名
+     */
+    Set<String> showIndexs();
 }

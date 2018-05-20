@@ -68,6 +68,7 @@ public abstract class CollectionTest<E> {
 
     @Test
     public void testIterator() {
+
         Collection<E> box = newBox();
         E randomElement = newRandomElement();
         box.add(randomElement);
@@ -95,16 +96,13 @@ public abstract class CollectionTest<E> {
         box.add(e2);
         E e3 = newRandomElement();
         box.add(e3);
-
         Object[] arr2 = box.toArray();
-
-
-//        Assert.assertTrue(Arrays.equals(arr1, arr2));
         Assert.assertEquals(box.size(), arr2.length);
         for (Object o : arr2) {
             box.remove(o);
         }
         Assert.assertEquals(box.size(), 0);
+
     }
 
 
