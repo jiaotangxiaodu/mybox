@@ -23,6 +23,7 @@
         <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinkedQueue">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedQueueImpl</mapper>
 
         <mapper name="com.github.jiaotangxiaodu.mybox.linear.Deque">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedDequeProxy</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.PriorityQueue">com.github.jiaotangxiaodu.mybox.linear.impl.HeapPriorityQueueProxy</mapper>
 
         <!-- Tree -->
         <mapper name="com.github.jiaotangxiaodu.mybox.tree.RBTree">java.util.TreeSet</mapper>
