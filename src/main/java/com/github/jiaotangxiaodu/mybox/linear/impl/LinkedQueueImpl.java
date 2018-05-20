@@ -33,6 +33,7 @@ public class LinkedQueueImpl<E> extends AbstractQueue<E> implements LinkedQueue<
         Node<E> newRear = new Node<>(null, e);
         if (isEmpty()) {
             front = rear = newRear;
+            size++;
             return true;
         }
         rear = rear.next = newRear;

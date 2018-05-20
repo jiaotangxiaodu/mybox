@@ -4,7 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * github.com/jiaotangxiaodu/mybox
@@ -98,10 +100,13 @@ public abstract class CollectionTest<E> {
         box.add(e3);
         Object[] arr2 = box.toArray();
         Assert.assertEquals(box.size(), arr2.length);
-        for (Object o : arr2) {
-            box.remove(o);
+
+        Set<E> set = new HashSet<>();
+        for (E e : box) {
+            set.add(e);
         }
-        Assert.assertEquals(box.size(), 0);
+
+        Assert.assertTrue(set.containsAll(box));
 
     }
 
