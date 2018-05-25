@@ -88,7 +88,7 @@ public class LinkedQueueImpl<E> extends AbstractQueue<E> implements LinkedQueue<
 
         public E next() {
             if (!hasNext())
-                throw new NoSuchElementException();
+                throw new NoSuchElementException("迭代器中没有下一个元素了");
 
             lastReturned = next;
             next = next.next;

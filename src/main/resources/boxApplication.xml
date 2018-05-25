@@ -5,27 +5,55 @@
     </config>
     <mappers>
         <!-- Java原生接口 -->
-        <mapper name="java.util.List">java.util.ArrayList</mapper>
+        <mapper name="java.util.List">com.github.jiaotangxiaodu.mybox.linear.impl.ArrayListProxy</mapper>
         <mapper name="java.util.Set">com.github.jiaotangxiaodu.mybox.set.impl.HashSetImpl</mapper>
 
         <!-- Set -->
-        <mapper name="com.github.jiaotangxiaodu.mybox.set.IndexSet">com.github.jiaotangxiaodu.mybox.set.impl.IndexSetImpl</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.set.HashSet">com.github.jiaotangxiaodu.mybox.set.impl.HashSetImpl</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.set.SortedSet">com.github.jiaotangxiaodu.mybox.set.impl.SortedSetImpl</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.set.IndexSet">
+            com.github.jiaotangxiaodu.mybox.set.impl.IndexSetImpl
+        </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.set.HashSet">
+            com.github.jiaotangxiaodu.mybox.set.impl.HashSetImpl
+        </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.set.SortedSet">
+            com.github.jiaotangxiaodu.mybox.set.impl.SortedSetImpl
+        </mapper>
 
         <!-- Linear -->
-        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinearList">com.github.jiaotangxiaodu.mybox.linear.impl.ArrayListProxy</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinkedList">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedListProxy</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.linear.ArrayList">com.github.jiaotangxiaodu.mybox.linear.impl.ArrayListProxy</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.linear.Stack">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedStackImpl</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinkedStack">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedStackImpl</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.linear.Queue">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedQueueImpl</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinkedQueue">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedQueueImpl</mapper>
-
-        <mapper name="com.github.jiaotangxiaodu.mybox.linear.Deque">com.github.jiaotangxiaodu.mybox.linear.impl.LinkedDequeProxy</mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.linear.PriorityQueue">com.github.jiaotangxiaodu.mybox.linear.impl.HeapPriorityQueueProxy</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinearList">
+            com.github.jiaotangxiaodu.mybox.linear.impl.ArrayListProxy
+        </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinkedList">
+            com.github.jiaotangxiaodu.mybox.linear.impl.LinkedListProxy
+        </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.ArrayList">
+            com.github.jiaotangxiaodu.mybox.linear.impl.ArrayListProxy
+        </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.Stack">
+            com.github.jiaotangxiaodu.mybox.linear.impl.LinkedStackImpl
+        </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinkedStack">
+            com.github.jiaotangxiaodu.mybox.linear.impl.LinkedStackImpl
+        </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.Queue">
+            com.github.jiaotangxiaodu.mybox.linear.impl.LinkedQueueImpl
+        </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.LinkedQueue">
+            com.github.jiaotangxiaodu.mybox.linear.impl.LinkedQueueImpl
+        </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.Deque">
+            com.github.jiaotangxiaodu.mybox.linear.impl.LinkedDequeProxy
+        </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.linear.PriorityQueue">
+            com.github.jiaotangxiaodu.mybox.tree.impl.HeapPriorityQueueProxy
+        </mapper>
 
         <!-- Tree -->
-        <mapper name="com.github.jiaotangxiaodu.mybox.tree.RBTree">java.util.TreeSet</mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.tree.BinaryTree">
+            com.github.jiaotangxiaodu.mybox.tree.impl.ADTImpl
+        </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.tree.ADT">
+            com.github.jiaotangxiaodu.mybox.tree.impl.ADTImpl
+        </mapper>
     </mappers>
 </boxContext>

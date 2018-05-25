@@ -1,4 +1,4 @@
-package com.github.jiaotangxiaodu.mybox.linear.impl;
+package com.github.jiaotangxiaodu.mybox.tree.impl;
 
 import com.github.jiaotangxiaodu.mybox.core.util.CommonUtil;
 import com.github.jiaotangxiaodu.mybox.inf.ProxyImpl;
