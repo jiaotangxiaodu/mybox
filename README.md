@@ -8,31 +8,32 @@
 ## 使用  
 
 1. 依赖  
-    jar包://TODO  
+    jar包:![jar包]https://github.com/jiaotangxiaodu/mybox/raw/master/out/artifacts/mybox_jar/mybox.jar 
+    源码:![源码]https://github.com/jiaotangxiaodu/mybox/raw/master/out/artifacts/mybox_src_v1_0/mybox_src_v1.0.jar 
     maven://TODO
 2. 创建工厂  
-    myContainer工厂属于轻量级对象,使用时直接new即可。  
-    `ContainerFactory factory = new SimpleContainerFactory();  `
+    myBox工厂属于轻量级对象,使用时直接new即可。  
+    `BoxFactory factory = new SimpleBoxFactory();  `
     
     如果你的项目集成了Spring,也可以使用依赖注入的方式实例化工厂。  
     
     applicationContext.xml  
-    `<bean id="containerFactory" 
-    class="com.github.jiaotangxiaodu.mycontainer.core.factory.SimpleContainerFactory"/>`
+    `<bean id="boxFactory" 
+    class="com.github.jiaotangxiaodu.mybox.core.factory.SimpleBoxFactory"/>`
     
     Java代码  
-    `import com.github.jiaotangxiaodu.mycontainer.core.factory.ContainerFactory`  
+    `import com.github.jiaotangxiaodu.mybox.core.factory.SimpleBoxFactoryy`  
     
     `@Autowired`  
-    `private ContainerFactory containerFactory;`
+    `private BoxFactory boxFactory;`
     
 3. 构建容器  
-    eg.构建一个AVL树容器  
+    示例:构建一个容纳String的AVL树容器  
     `import com.github.jiaotangxiaodu.mycontainer.core.strutype.Tree`  
-    
+    `AVL<String> avl = factory.create(AVL.class);`
     
 
 
 ## V1.0  
-myContainer1.0容器支持的数据结构  
-![myContainer1.0容器支持的数据结构](https://raw.githubusercontent.com/jiaotangxiaodu/imgReponsitory/master/myContainer/portal/support_structure.png)
+myBox1.0容器支持的数据结构  
+![myBox1.0容器支持的数据结构](https://raw.githubusercontent.com/jiaotangxiaodu/imgReponsitory/master/myContainer/portal/support_structure.png)
