@@ -1,8 +1,8 @@
-(V1.0施工中)  
+(V1.0)  
 ## 一个工厂模式快速构建数据容器的框架。    
 专注高扩展性。容器继承自Collection,与Java原生List、Set框架完全兼容。  
 支持索引,支持栈、队列、RB树等数据结构。  
-非侵入性,容器支持所有类型的POJO,支持Spring注入,支持注解和XML两种扩展方式。  
+非侵入性,容器支持所有类型的POJO,支持Spring注入。  
 
 
 ## 使用  
@@ -35,4 +35,4 @@
 
 ## V1.0  
 myContainer1.0容器支持的数据结构  
-![myContainer1.0容器支持的数据结构](https://raw.githubusercontent.com/jiaotangxiaodu/imgReponsitory/master/myContainer/portal/support_structure.png )
+![myContainer1.0容器支持的数据结构](https://raw.githubusercontent.com/jiaotangxiaodu/imgReponsitory/master/myContainer/portal/support_structure.png)
