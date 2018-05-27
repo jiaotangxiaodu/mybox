@@ -5,7 +5,7 @@ package com.github.jiaotangxiaodu.mybox.tree;
  * 2018-5-24
  * 二叉查找树
  */
-public interface ADT<E> extends BinaryTree<E> {
+public interface BST<E> extends BinaryTree<E> {
 
     /**
      * 找出最小元素，空树返回null

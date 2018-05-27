@@ -51,7 +51,7 @@ public interface BinaryTree<E> extends Tree<E> {
 
         @Override
         public E next() {
-            return itr.next().element();
+            return itr.next().getElement();
         }
 
     }
@@ -64,8 +64,8 @@ public interface BinaryTree<E> extends Tree<E> {
                 return;
             }
             itrQueue.offer(node);
-            preIterator(node.left(), itrQueue);
-            preIterator(node.right(), itrQueue);
+            preIterator(node.getLeft(), itrQueue);
+            preIterator(node.getRight(), itrQueue);
 
         }
 
@@ -73,17 +73,17 @@ public interface BinaryTree<E> extends Tree<E> {
             if (node == null) {
                 return;
             }
-            inIterator(node.left(), itrQueue);
+            inIterator(node.getLeft(), itrQueue);
             itrQueue.offer(node);
-            inIterator(node.right(), itrQueue);
+            inIterator(node.getRight(), itrQueue);
         }
 
         public void postIterator(BinaryTreeNode<E> node, Queue<BinaryTreeNode<E>> itrQueue) {
             if (node == null) {
                 return;
             }
-            postIterator(node.right(), itrQueue);
-            postIterator(node.left(), itrQueue);
+            postIterator(node.getRight(), itrQueue);
+            postIterator(node.getLeft(), itrQueue);
             itrQueue.offer(node);
         }
 

@@ -16,10 +16,10 @@ public abstract class TreeTest<E> extends CollectionTest<E> {
     @Test
     public void testRoot() {
         Tree<E> tree = newBox();
-        Assert.assertEquals(null, tree.root());
+        Assert.assertEquals(null, tree.getRoot());
         E rootElement = newRandomElement();
         tree.add(rootElement);
-        Assert.assertEquals(rootElement, tree.root().element());
+        Assert.assertEquals(rootElement, tree.getRoot().getElement());
     }
 
     @Test

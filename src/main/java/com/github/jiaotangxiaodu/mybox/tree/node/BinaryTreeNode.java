@@ -5,29 +5,29 @@ package com.github.jiaotangxiaodu.mybox.tree.node;
  * 2018-5-24
  * 二叉树结点
  */
-public interface BinaryTreeNode<E> extends TreeNode<E> {
+public interface BinaryTreeNode<E> extends TreeNode<E>,Cloneable {
     /**
      * 返回左子节点
      */
-    BinaryTreeNode<E> left();
+    BinaryTreeNode<E> getLeft();
 
     /**
      * 返回右子节点
      */
-    BinaryTreeNode<E> right();
+    BinaryTreeNode<E> getRight();
 
     /**
      * 设置左子节点
      *
      * @param e
      */
-    void left(BinaryTreeNode<E> e);
+    void setLeft(BinaryTreeNode<E> e);
 
     /**
      * 设置右子节点
      *
      * @param e
      */
-    void right(BinaryTreeNode<E> e);
+    void setRight(BinaryTreeNode<E> e);
 
 }

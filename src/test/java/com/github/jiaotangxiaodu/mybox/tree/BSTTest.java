@@ -15,10 +15,10 @@ import java.util.Iterator;
  * 2018-5-25
  * 测试ADT中装入实现Comparable接口的元素
  */
-public class ADTTest extends TreeTest<Integer> implements IntegerTest {
+public class BSTTest extends TreeTest<Integer> implements IntegerTest {
     @Override
-    public ADT<Integer> newBox() {
-        return CoreFactory.create(ADT.class);
+    public BST<Integer> newBox() {
+        return CoreFactory.create(BST.class);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ADTTest extends TreeTest<Integer> implements IntegerTest {
         StringBuffer sb = new StringBuffer();
         sb.append("先序遍历:[");
         TempWrapper wrapper = initDefault();
-        Iterator<Integer> preItr = wrapper.adt.preIterator();
+        Iterator<Integer> preItr = wrapper.BST.preIterator();
         while (preItr.hasNext()) {
             Integer next = preItr.next();
             sb.append(next + ",");
@@ -43,9 +43,9 @@ public class ADTTest extends TreeTest<Integer> implements IntegerTest {
 
         TempWrapper tempWrapper = initDefault();
         Integer[] is = tempWrapper.is;
-        ADT<Integer> adt = tempWrapper.adt;
-        TreeNode<Integer> root = adt.root();
-        Iterator<Integer> inItr = adt.inIterator();
+        BST<Integer> BST = tempWrapper.BST;
+        TreeNode<Integer> root = BST.getRoot();
+        Iterator<Integer> inItr = BST.inIterator();
         int index = 0;
         while (inItr.hasNext()) {
             Integer eInADT = inItr.next();
@@ -63,7 +63,7 @@ public class ADTTest extends TreeTest<Integer> implements IntegerTest {
         StringBuffer sb = new StringBuffer();
         sb.append("后序遍历:[");
         TempWrapper wrapper = initDefault();
-        Iterator<Integer> preItr = wrapper.adt.postIterator();
+        Iterator<Integer> preItr = wrapper.BST.postIterator();
         while (preItr.hasNext()) {
             Integer next = preItr.next();
             sb.append(next + ",");
@@ -76,13 +76,13 @@ public class ADTTest extends TreeTest<Integer> implements IntegerTest {
     @Test
     public void testFindMin() {
         TempWrapper wrap = initDefault();
-        Assert.assertEquals(wrap.adt.findMin(), wrap.is[0]);
+        Assert.assertEquals(wrap.BST.findMin(), wrap.is[0]);
     }
 
     @Test
     public void testFindMax() {
         TempWrapper wrap = initDefault();
-        Assert.assertEquals(wrap.is[wrap.is.length - 1], wrap.adt.findMax());
+        Assert.assertEquals(wrap.is[wrap.is.length - 1], wrap.BST.findMax());
     }
 
     @Override
@@ -97,15 +97,15 @@ public class ADTTest extends TreeTest<Integer> implements IntegerTest {
 
     private TempWrapper initDefault() {
         TempWrapper tempWrapper = new TempWrapper();
-        tempWrapper.adt = CoreFactory.create(ADT.class);
+        tempWrapper.BST = CoreFactory.create(BST.class);
         tempWrapper.is = new Integer[100];
         for (int i = 0; i < tempWrapper.is.length; i++) {
             Integer e = newRandomElement();
             tempWrapper.is[i] = e;
-            tempWrapper.adt.add(e);
+            tempWrapper.BST.add(e);
         }
         Arrays.sort(tempWrapper.is);
-        TreeNode<Integer> root = tempWrapper.adt.root();
+        TreeNode<Integer> root = tempWrapper.BST.getRoot();
         return tempWrapper;
     }
 
@@ -113,6 +113,6 @@ public class ADTTest extends TreeTest<Integer> implements IntegerTest {
         //已排序的数组
         Integer[] is;
         //树
-        ADT<Integer> adt;
+        BST<Integer> BST;
     }
 }

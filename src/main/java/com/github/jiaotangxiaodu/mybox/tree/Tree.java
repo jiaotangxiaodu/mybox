@@ -32,7 +32,7 @@ public interface Tree<E> extends Collection<E> {
      * 先序遍历（根左右）
      */
     default Iterator<E> preIterator() {
-        return preIterator(root());
+        return preIterator(getRoot());
     }
 
     /**
@@ -44,7 +44,7 @@ public interface Tree<E> extends Collection<E> {
      * 中序遍历(左根右)
      */
     default Iterator<E> inIterator() {
-        return inIterator(root());
+        return inIterator(getRoot());
     }
     /**
      * 在传入的结点上进行中序遍历(左根右)
@@ -55,7 +55,7 @@ public interface Tree<E> extends Collection<E> {
      * 后序遍历（左右根）
      */
     default Iterator<E> postIterator() {
-        return postIterator(root());
+        return postIterator(getRoot());
     }
     /**
      * 在传入的结点上进行后序遍历（左右根）
@@ -65,7 +65,7 @@ public interface Tree<E> extends Collection<E> {
     /**
      * 返回根节点
      */
-    TreeNode<E> root();
+    TreeNode<E> getRoot();
 
     /**
      * 默认遍历方式是中序遍历

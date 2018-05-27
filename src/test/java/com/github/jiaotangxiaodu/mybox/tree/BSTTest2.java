@@ -17,13 +17,13 @@ import java.util.Iterator;
  * 2018-5-25
  * 测试ADT使用Comparator的情形
  */
-public class ADT2Test extends TreeTest<Student> implements StudentTest {
+public class BSTTest2 extends TreeTest<Student> implements StudentTest {
     @Override
-    public ADT<Student> newBox() {
-        ADT adt = CoreFactory.create(ADT.class);
+    public BST<Student> newBox() {
+        BST BST = CoreFactory.create(BST.class);
         Comparator<Student> comparator = Comparator.comparing(Student::getName);
-        adt.setComparator(comparator);
-        return adt;
+        BST.setComparator(comparator);
+        return BST;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ADT2Test extends TreeTest<Student> implements StudentTest {
         StringBuffer sb = new StringBuffer();
         sb.append("先序遍历:[");
         TempWrapper wrapper = initDefault();
-        Iterator<Student> preItr = wrapper.adt.preIterator();
+        Iterator<Student> preItr = wrapper.BST.preIterator();
         while (preItr.hasNext()) {
             Student next = preItr.next();
             sb.append(next + ",");
@@ -48,9 +48,9 @@ public class ADT2Test extends TreeTest<Student> implements StudentTest {
 
         TempWrapper tempWrapper = initDefault();
         Student[] is = tempWrapper.is;
-        ADT<Student> adt = tempWrapper.adt;
-        TreeNode<Student> root = adt.root();
-        Iterator<Student> inItr = adt.inIterator();
+        BST<Student> BST = tempWrapper.BST;
+        TreeNode<Student> root = BST.getRoot();
+        Iterator<Student> inItr = BST.inIterator();
         int index = 0;
         while (inItr.hasNext()) {
             Student eInADT = inItr.next();
@@ -68,7 +68,7 @@ public class ADT2Test extends TreeTest<Student> implements StudentTest {
         StringBuffer sb = new StringBuffer();
         sb.append("后序遍历:[");
         TempWrapper wrapper = initDefault();
-        Iterator<Student> preItr = wrapper.adt.postIterator();
+        Iterator<Student> preItr = wrapper.BST.postIterator();
         while (preItr.hasNext()) {
             Student next = preItr.next();
             sb.append(next).append(",");
@@ -79,13 +79,14 @@ public class ADT2Test extends TreeTest<Student> implements StudentTest {
     @Test
     public void testFindMin() {
         TempWrapper wrap = initDefault();
-        Assert.assertEquals(wrap.adt.findMin(), wrap.is[0]);
+        System.out.println(wrap.BST.size());
+        Assert.assertEquals(wrap.BST.findMin(), wrap.is[0]);
     }
 
     @Test
     public void testFindMax() {
         TempWrapper wrap = initDefault();
-        Assert.assertEquals(wrap.is[wrap.is.length - 1], wrap.adt.findMax());
+        Assert.assertEquals(wrap.is[wrap.is.length - 1], wrap.BST.findMax());
     }
 
     @Override
@@ -100,13 +101,13 @@ public class ADT2Test extends TreeTest<Student> implements StudentTest {
 
     private TempWrapper initDefault() {
         TempWrapper tempWrapper = new TempWrapper();
-        tempWrapper.adt = newBox();
+        tempWrapper.BST = newBox();
 
         tempWrapper.is = new Student[100];
         for (int i = 0; i < tempWrapper.is.length; i++) {
             Student e = newRandomElement();
             tempWrapper.is[i] = e;
-            tempWrapper.adt.add(e);
+            tempWrapper.BST.add(e);
         }
         Arrays.sort(tempWrapper.is, Comparator.comparing(Student::getName));
         return tempWrapper;
@@ -116,6 +117,6 @@ public class ADT2Test extends TreeTest<Student> implements StudentTest {
         //已排序的数组
         Student[] is;
         //树
-        ADT<Student> adt;
+        BST<Student> BST;
     }
 }

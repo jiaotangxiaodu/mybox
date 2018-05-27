@@ -50,10 +50,13 @@
 
         <!-- Tree -->
         <mapper name="com.github.jiaotangxiaodu.mybox.tree.BinaryTree">
-            com.github.jiaotangxiaodu.mybox.tree.impl.ADTImpl
+            com.github.jiaotangxiaodu.mybox.tree.impl.BSTImpl
         </mapper>
-        <mapper name="com.github.jiaotangxiaodu.mybox.tree.ADT">
-            com.github.jiaotangxiaodu.mybox.tree.impl.ADTImpl
+        <mapper name="com.github.jiaotangxiaodu.mybox.tree.BST">
+            com.github.jiaotangxiaodu.mybox.tree.impl.BSTImpl
+        </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.tree.AVL">
+            com.github.jiaotangxiaodu.mybox.tree.impl.AVLImpl
         </mapper>
     </mappers>
 </boxContext>
