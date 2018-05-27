@@ -2,7 +2,6 @@ package com.github.jiaotangxiaodu.mybox.tree.impl;
 
 import com.github.jiaotangxiaodu.mybox.core.util.CommonUtil;
 import com.github.jiaotangxiaodu.mybox.inf.ProxyImpl;
-import com.github.jiaotangxiaodu.mybox.tree.BinaryTree;
 import com.github.jiaotangxiaodu.mybox.tree.RBTree;
 import com.github.jiaotangxiaodu.mybox.tree.node.BinaryTreeNode;
 import com.github.jiaotangxiaodu.mybox.tree.node.TreeNode;
@@ -71,7 +70,7 @@ public class RBTreeProxy<E> implements ProxyImpl<RBTree> {
         return new Class[0];
     }
 
-    private static class TreeSet$BinaryTree<E> extends TreeSet<E> implements BinaryTree<E> {
+    private static class TreeSet$BinaryTree<E> extends TreeSet<E> implements RBTree<E> {
 
         public TreeSet$BinaryTree() {
         }
@@ -97,10 +96,12 @@ public class RBTreeProxy<E> implements ProxyImpl<RBTree> {
         public TreeNode<E> getRoot() {
             //wtf.......
             try {
+                if (size() == 0) return null;
                 Field m = TreeSet.class.getDeclaredField("m");
                 m.setAccessible(true);
                 TreeMap map = (TreeMap) m.get(this);
                 Field rootField = TreeMap.class.getDeclaredField("root");
+                rootField.setAccessible(true);
                 Object treeMap$Root = rootField.get(map);
                 return new TreeMapEntryWrapper<>(treeMap$Root);
             } catch (Exception e) {
@@ -117,6 +118,21 @@ public class RBTreeProxy<E> implements ProxyImpl<RBTree> {
         @Override
         public Iterator<E> postIterator() {
             throw new UnsupportedOperationException("RB树不支持后序遍历");
+        }
+
+        @Override
+        public Iterator<E> inIterator() {
+            return super.iterator();
+        }
+
+        @Override
+        public E findMin() {
+            return first();
+        }
+
+        @Override
+        public E findMax() {
+            return last();
         }
     }
 
