@@ -58,5 +58,8 @@
         <mapper name="com.github.jiaotangxiaodu.mybox.tree.AVL">
             com.github.jiaotangxiaodu.mybox.tree.impl.AVLImpl
         </mapper>
+        <mapper name="com.github.jiaotangxiaodu.mybox.tree.RBTree">
+            com.github.jiaotangxiaodu.mybox.tree.impl.RBTreeProxy
+        </mapper>
     </mappers>
 </boxContext>

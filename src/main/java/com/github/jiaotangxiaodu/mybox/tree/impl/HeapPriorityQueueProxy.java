@@ -25,13 +25,13 @@ public class HeapPriorityQueueProxy implements ProxyImpl<PriorityQueue> {
                 invokeSetComparator((Comparator) args[0]);
                 return null;
             }
-            if (comparatorPriorityQueue == null) {
-                return method.invoke(nonComparatorPriorityQueue, args);
-            } else {
-                return method.invoke(comparatorPriorityQueue, args);
-            }
+            return method.invoke(getCurrentProxy(), args);
 
         });
+    }
+
+    private java.util.PriorityQueue getCurrentProxy() {
+        return comparatorPriorityQueue == null ? nonComparatorPriorityQueue : comparatorPriorityQueue;
     }
 
     /**
