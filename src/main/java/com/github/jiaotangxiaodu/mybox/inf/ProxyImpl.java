@@ -9,11 +9,13 @@ import java.util.Arrays;
  * 2018-5-20
  * 当容器需要使用动态代理实现时,让容器实现类实现这个接口
  * 此时myBox工厂create方不会返回实现类本身,而是返回newProxy方法返回的动态代理生成的对象
+ * 泛型T为需要使用的容器的接口
  */
 public interface ProxyImpl<T> {
     /**
      * 返回被代理对象
      * 此方法应当返回代理方法的实际执行者
+     *
      * @return
      */
     Object getProxy();
@@ -25,6 +27,7 @@ public interface ProxyImpl<T> {
 
     /**
      * 创建动态代理
+     *
      * @return
      */
     default T newProxy() {
@@ -44,11 +47,12 @@ public interface ProxyImpl<T> {
 
     /**
      * 调用被代理对象中不存在的方法时,此方法会被调用
+     *
      * @param proxy 被代理对象
      */
-    default Object selfDefineMethod(Object proxy, Method method, Object[] args) {
+    default Object selfDefineMethod(Object proxy, Method method, Object[] args) throws NoSuchMethodException {
         //代理对象中找不到需要执行的方法
         //如果需要执行代理对象中不存在的方法,需要重写此方法
-        throw new RuntimeException("代理对象中没有方法" + method + ",args = " + Arrays.toString(args) + ",代理对象:" + proxy);
+        throw new RuntimeException("代理对象中没有方法" + method.getName() + ",args = " + Arrays.toString(args) + ",代理对象:" + proxy);
     }
 }

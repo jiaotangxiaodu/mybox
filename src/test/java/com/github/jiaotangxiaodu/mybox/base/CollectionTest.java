@@ -3,10 +3,7 @@ package com.github.jiaotangxiaodu.mybox.base;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * github.com/jiaotangxiaodu/mybox
@@ -211,6 +208,7 @@ public abstract class CollectionTest<E> {
 
         box.clear();
         Assert.assertEquals(box.size(), 0);
+
     }
 
 

@@ -6,6 +6,7 @@ import com.github.jiaotangxiaodu.mybox.linear.ArrayList;
 /**
  * github.com/jiaotangxiaodu/mybox
  * 2018-5-20
+ * ArrayList的默认代理实现
  */
 public class ArrayListProxy implements ProxyImpl<ArrayList> {
 

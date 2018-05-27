@@ -5,6 +5,8 @@ import com.github.jiaotangxiaodu.mybox.tree.BST;
 import com.github.jiaotangxiaodu.mybox.tree.node.TreeNode;
 import org.junit.Test;
 
+import java.util.TreeSet;
+
 /**
  * github.com/jiaotangxiaodu/mybox
  * 2018-5-24
@@ -38,6 +40,20 @@ public class MyTest {
         bst.add(2);
         bst.add(3);
         System.out.println(bst);
+    }
+
+    @Test
+    public void test4() {
+        TreeSet<Integer> set = new TreeSet<>();
+        set.add(1);
+        set.add(7);
+        set.add(8);
+        set.add(4);
+        set.add(9);
+        set.add(2);
+
+        System.out.println(set.first());
+        System.out.println(set.last());
     }
 
 }
