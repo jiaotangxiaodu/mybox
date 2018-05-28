@@ -10,7 +10,7 @@
 1. 依赖  
     jar包:https://github.com/jiaotangxiaodu/mybox/raw/master/out/artifacts/mybox_jar/mybox.jar   
     源码:https://github.com/jiaotangxiaodu/mybox/raw/master/out/artifacts/mybox_src_v1_0/mybox_src_v1.0.jar   
-    maven:下载jar包后导入到自己的本地仓库，坐标如下
+    maven:下载jar包后导入到自己的本地仓库，坐标如下  
         `<groupId>com.github.jiaotangxiaodu</groupId>`  
         `<artifactId>mybox</artifactId>`  
         `<version>1.0-SNAPSHOT</version>`  
