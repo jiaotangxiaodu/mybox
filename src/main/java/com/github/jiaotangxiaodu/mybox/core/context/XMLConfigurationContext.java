@@ -7,6 +7,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Modifier;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,5 +87,10 @@ public class XMLConfigurationContext implements BoxContext {
             return boxType;
         }
         return null;
+    }
+
+    @Override
+    public void put(Class<? extends Collection> boxType, Class<?> implType) {
+        this.mappers.put(boxType, implType);
     }
 }

@@ -6,6 +6,7 @@ import com.github.jiaotangxiaodu.mybox.inf.ProxyImpl;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * github.com/jiaotangxiaodu/mybox
@@ -49,6 +50,12 @@ public class SimpleBoxFactory implements BoxFactory {
         }
     }
 
+    @Override
+    public void register(Class<? extends Collection> boxType, Class<?> implType) {
+        if (boxContext == null) initDefaultContext();
+        boxContext.put(boxType, implType);
+    }
+
     /**
      * 使用空参构造创建容器
      *
@@ -63,7 +70,8 @@ public class SimpleBoxFactory implements BoxFactory {
         }
 
         try {
-            Constructor<T> constructor = boxType.getConstructor();
+            Constructor<T> constructor = boxType.getDeclaredConstructor();
+            constructor.setAccessible(true);
             T t = constructor.newInstance();
             return t;
         } catch (NoSuchMethodException | IllegalAccessException e) {
@@ -91,4 +99,6 @@ public class SimpleBoxFactory implements BoxFactory {
     private <T> T invokeArgsConstructor(Class boxType, Object[] args) {
         throw new UnsupportedOperationException("暂时不支持带参数的构造");
     }
+
+
 }
