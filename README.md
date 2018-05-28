@@ -10,7 +10,10 @@
 1. 依赖  
     jar包:https://github.com/jiaotangxiaodu/mybox/raw/master/out/artifacts/mybox_jar/mybox.jar   
     源码:https://github.com/jiaotangxiaodu/mybox/raw/master/out/artifacts/mybox_src_v1_0/mybox_src_v1.0.jar   
-    maven://TODO
+    maven:下载jar包后导入到自己的本地仓库，坐标如下
+        `<groupId>com.github.jiaotangxiaodu</groupId>`  
+        `<artifactId>mybox</artifactId>`  
+        `<version>1.0-SNAPSHOT</version>`  
 2. 创建工厂  
     myBox工厂属于轻量级对象,使用时直接new即可。  
     `BoxFactory factory = new SimpleBoxFactory();  `
@@ -29,8 +32,11 @@
     
 3. 构建容器  
     示例:构建一个容纳String的AVL(平衡二叉树)容器  
+    https://github.com/jiaotangxiaodu/mybox/blob/master/example/src/com/jiaotangxiaodu/mybox/example/AVLExample.java  
     示例:使用IndexSet容器(能够创建索引并进行搜索的容器)并使用条件过滤
-    示例:扩展Stack使其具有"翻转"的功能
+    https://github.com/jiaotangxiaodu/mybox/blob/master/example/src/com/jiaotangxiaodu/mybox/example/IndexSetExample.java  
+    示例:扩展Stack使其具有"翻转"的功能  
+    https://github.com/jiaotangxiaodu/mybox/blob/master/example/src/com/jiaotangxiaodu/mybox/example/MyStackExample.java  
 
 ## V1.0  
 myBox1.0容器原生支持的数据结构  

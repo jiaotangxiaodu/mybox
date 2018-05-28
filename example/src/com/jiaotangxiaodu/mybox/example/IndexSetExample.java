@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * github.com/jiaotangxiaodu/mybox
  * 2018-5-27
+ * 示例：创建索引集合容器，这个容器会自动对其中元素的属性创建索引
  */
 public class IndexSetExample {
 
